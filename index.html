@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>easyassets Launcher</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .container {
+        width: min(720px, 96vw);
+        background: #111827;
+        border: 1px solid #334155;
+        border-radius: 18px;
+        padding: 28px;
+        box-shadow: 0 22px 60px rgba(15, 23, 42, 0.35);
+      }
+      .header {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+      h1 {
+        margin: 0 0 12px;
+        font-size: 2rem;
+        line-height: 1.05;
+      }
+      .subtitle {
+        margin: 0;
+        color: #cbd5e1;
+        font-size: 0.96rem;
+      }
+      .status-panel {
+        display: grid;
+        gap: 18px;
+      }
+      .status-card,
+      .details-card,
+      .callout {
+        background: #0f172a;
+        border: 1px solid #1f2a44;
+        border-radius: 16px;
+        padding: 20px;
+      }
+      .status-label,
+      .details-title {
+        margin: 0 0 10px;
+        color: #94a3b8;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      .details-list {
+        list-style: none;
+        margin: 14px 0 0;
+        padding: 0;
+        color: #cbd5e1;
+      }
+      .details-list li {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 0;
+        border-top: 1px solid rgba(148, 163, 184, 0.12);
+      }
+      .details-list li:first-child {
+        border-top: none;
+      }
+      .details-list strong {
+        color: #e2e8f0;
+      }
+      .callout p {
+        margin: 0;
+        color: #cbd5e1;
+        line-height: 1.7;
+      }
+      p {
+        margin: 0;
+        line-height: 1.7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div>
+          <h1>Oops — the website seems down</h1>
+          <p class="subtitle">EasyAssets Launcher is using a local fallback page while the website is unavailable.</p>
+        </div>
+      </div>
+
+      <section class="status-panel">
+        <div class="status-card">
+          <p class="status-label">Current launcher status</p>
+          <p id="status">Checking connection to the website...</p>
+        </div>
+
+        <div class="details-card">
+          <p class="details-title">Status details</p>
+          <p id="log">If the website is down, the launcher will continue to show local status and recovery information here.</p>
+          <ul id="health-list" class="details-list">
+            <li><strong>Website URL:</strong> <span id="website-url">Loading…</span></li>
+            <li><strong>Service status:</strong> <span id="service-status">Waiting for health check</span></li>
+            <li><strong>Database:</strong> <span id="database-status">-</span></li>
+            <li><strong>Authentication:</strong> <span id="auth-status">-</span></li>
+            <li><strong>Storage:</strong> <span id="storage-status">-</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="callout">
+        <p>If the site URL has changed, this launcher can load the latest website URL from Supabase so old versions can recover automatically.</p>
+      </div>
+    </div>
+
+    <script>
+      const statusEl = document.getElementById('status');
+      const logEl = document.getElementById('log');
+      const websiteUrlEl = document.getElementById('website-url');
+      const serviceStatusEl = document.getElementById('service-status');
+      const databaseStatusEl = document.getElementById('database-status');
+      const authStatusEl = document.getElementById('auth-status');
+      const storageStatusEl = document.getElementById('storage-status');
+
+      window.electronAPI.onStatus((message) => {
+        statusEl.textContent = message;
+        logEl.textContent = message;
+      });
+
+      window.electronAPI.onHealth((info) => {
+        if (!info) return;
+
+        websiteUrlEl.textContent = info.websiteUrl || 'Unknown';
+        serviceStatusEl.textContent = info.status === 'offline' ? 'Offline' : 'Online';
+        databaseStatusEl.textContent = info.services?.database || 'Unknown';
+        authStatusEl.textContent = info.services?.auth || 'Unknown';
+        storageStatusEl.textContent = info.services?.storage || 'Unknown';
+
+        if (info.message) {
+          logEl.textContent = info.message;
+        }
+      });
+    </script>
+  </body>
+</html>

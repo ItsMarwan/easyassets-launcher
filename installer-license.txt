@@ -1,0 +1,22 @@
+EASYASSETS INSTALLATION LICENSE
+
+Please read these terms carefully before installing EasyAssets Launcher.
+
+By installing or using this software, you agree to the terms of service and license agreement.
+
+1. License Grant
+EasyAssets grants you a limited, non-exclusive, non-transferable license to use the EasyAssets Launcher on your device.
+
+2. Restrictions
+You may not reverse engineer, decompile, or modify the software except as permitted by applicable law.
+
+3. Privacy
+Use of the software may involve collection of device and usage data. See the product privacy policy for details.
+
+4. No Warranty
+This software is provided "as is" without warranties of any kind.
+
+5. Governing Law
+This agreement is governed by applicable local law.
+
+Replace this text with your actual terms of service or license agreement before distribution.

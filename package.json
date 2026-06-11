@@ -1,0 +1,129 @@
+{
+  "name": "easyassets-launcher",
+  "version": "0.1.0",
+  "private": true,
+  "description": "EasyAssets Launcher",
+  "author": "EasyAssets",
+  "main": "main.js",
+  "scripts": {
+    "dev": "electron .",
+    "start": "electron .",
+    "generate-icon": "node ./scripts/generate-icon.js",
+    "package:win": "pnpm run generate-icon && node ./scripts/package-win.js",
+    "installer:win": "node ./scripts/build-win.js",
+    "installer:win:web": "node ./scripts/build-win-web.js",
+    "installer:mac": "pnpm run generate-icon && electron-builder --mac",
+    "installer:linux": "pnpm run generate-icon && electron-builder --linux",
+    "build:win": "pnpm run generate-icon && pnpm run installer:win",
+    "build:win:web": "pnpm run generate-icon && pnpm run installer:win:web",
+    "build:win:portable": "pnpm run package:win",
+    "build:mac": "pnpm run installer:mac",
+    "build:linux": "pnpm run installer:linux"
+  },
+  "build": {
+    "appId": "com.easyassets.launcher",
+    "productName": "EasyAssets",
+    "directories": {
+      "output": "dist/installer",
+      "buildResources": "build"
+    },
+    "icon": "build/favicon.ico",
+    "asar": true,
+    "files": [
+      "**/*",
+      "!node_modules/.pnpm/**/*",
+      "!scripts/**/*",
+      "!favicon.png"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/favicon.ico",
+      "signAndEditExecutable": false
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.utilities",
+      "artifactName": "${productName}-${version}-mac.${ext}"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Utilities",
+      "artifactName": "${productName}-${version}-linux.${ext}",
+      "icon": "favicon.png"
+    },
+    "publish": null,
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "artifactName": "${productName}-Setup.${ext}",
+      "license": "installer-license.txt"
+    },
+    "nsisWeb": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "artifactName": "${productName}-Web-Setup.${ext}",
+      "license": "installer-license.txt",
+      "appPackageUrl": "https://download.easyassets.rweb.site"
+    }
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.14",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "7zip-bin": "^5.2.0",
+    "@electron/asar": "^4.2.0",
+    "@electron/get": "^5.0.0",
+    "@electron/notarize": "^3.1.1",
+    "@electron/osx-sign": "^2.4.0",
+    "@electron/packager": "^20.0.0",
+    "@xmldom/xmldom": "^0.9.10",
+    "balanced-match": "^1.0.2",
+    "brace-expansion": "^2.0.1",
+    "buffer-crc32": "^1.0.0",
+    "commander": "^14.0.3",
+    "crc32": "^0.2.2",
+    "debug": "^4.4.3",
+    "electron": "^38.8.6",
+    "electron-builder": "26.8.1",
+    "electron-packager": "^16.0.0",
+    "electron-winstaller": "^5.0.0",
+    "env-paths": "^4.0.0",
+    "err-code": "^3.0.1",
+    "extract-zip": "^2.0.1",
+    "glob": "^13.0.6",
+    "graceful-fs": "^4.2.11",
+    "is-safe-filename": "^0.1.1",
+    "isbinaryfile": "^6.0.0",
+    "minimatch": "^10.2.5",
+    "minipass": "^7.1.2",
+    "path-scurry": "^2.0.2",
+    "pend": "^1.2.0",
+    "plist": "^5.0.0",
+    "png-to-ico": "^1.0.0",
+    "progress": "^2.0.3",
+    "promise-retry": "^2.0.1",
+    "retry": "^0.13.1",
+    "semver": "^7.8.0",
+    "sumchecker": "^3.0.1",
+    "yauzl": "^3.3.0"
+  }
+}
