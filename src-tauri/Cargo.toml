@@ -1,0 +1,60 @@
+[package]
+name = "easyassets-launcher"
+version = "0.1.0"
+description = "EasyAssets Launcher"
+authors = ["EasyAssets"]
+edition = "2021"
+
+[lib]
+name = "easyassets_launcher_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[[bin]]
+name = "easyassets-launcher"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri                        = { version = "2", features = ["protocol-asset"] }
+tauri-plugin-dialog          = "2"
+tauri-plugin-fs              = "2"
+tauri-plugin-http            = "=2.5.7"
+tauri-plugin-opener          = "2"
+tauri-plugin-deep-link       = "2"
+tauri-plugin-single-instance = "2"
+tauri-plugin-notification    = "2"
+
+serde        = { version = "1", features = ["derive"] }
+serde_json   = "1"
+tokio        = { version = "1", features = ["full"] }
+reqwest      = { version = "0.12", default-features = false, features = ["json", "stream", "rustls-tls"] }
+zip          = "2"
+dirs         = "5"
+anyhow       = "1"
+bytes        = "1"
+chrono       = { version = "0.4", features = ["serde"] }
+uuid         = { version = "1", features = ["v4"] }
+regex        = "1"
+once_cell    = "1"
+url          = "2"
+log          = "0.4"
+env_logger   = "0.11"
+dotenvy      = "0.15"
+
+# Pin time to 0.3.36 to fix cookie 0.18.1 E0119 conflict on Rust 1.78+.
+# time 0.3.37+ added From<HourBase> impls that conflict with cookie's blanket
+# From<T: Into<Option<OffsetDateTime>>> impl. All dependents use ^0.3 so
+# 0.3.36 satisfies every constraint while avoiding the compile error.
+time         = "=0.3.36"
+
+[profile.dev]
+incremental = true
+
+[profile.release]
+panic         = "abort"
+codegen-units = 1
+lto           = true
+opt-level     = "s"
+strip         = true

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://schema.tauri.app/acl/2/capability",
+  "identifier": "remote-access",
+  "description": "Grants the remote website permission to call all launcher commands via invoke()",
+  "remote": {
+    "urls": [
+      "https://easyassets.rweb.site/*",
+      "https://*.easyassets.rweb.site/*",
+      "https://easyassets-uefn.vercel.app/*"
+    ]
+  },
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "core:default",
+    "dialog:allow-open",
+    "dialog:allow-save",
+    "dialog:allow-message",
+    "dialog:allow-ask",
+    "fs:allow-read-file",
+    "fs:allow-write-file",
+    "fs:allow-remove",
+    "fs:allow-mkdir",
+    "fs:allow-read-dir",
+    "fs:allow-exists",
+    "fs:allow-stat",
+    "fs:allow-rename",
+    "fs:scope-appdata-recursive",
+    "fs:scope-download-recursive",
+    "fs:scope-home-recursive",
+    "http:default",
+    "opener:allow-open-url",
+    "opener:allow-reveal-item-in-dir",
+    "deep-link:default",
+    "notification:default",
+    "default"
+  ]
+}

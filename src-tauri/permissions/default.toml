@@ -1,0 +1,77 @@
+# Auto-allow all custom app commands for the launcher.
+# These are not plugin commands so they don't have plugin-generated permissions.
+# Tauri requires them to be explicitly listed here so the ACL resolver 
+# populates allowed_commands, which is required for remote-origin invocations.
+
+"$schema" = "../gen/schemas/desktop-schema.json"
+
+[[permission]]
+identifier = "allow-get-cached-assets"
+description = "Allow get_cached_assets command"
+commands.allow = ["get_cached_assets"]
+
+[[permission]]
+identifier = "allow-check-asset-updates"
+description = "Allow check_asset_updates command"
+commands.allow = ["check_asset_updates"]
+
+[[permission]]
+identifier = "allow-install-asset-update"
+description = "Allow install_asset_update command"
+commands.allow = ["install_asset_update"]
+
+[[permission]]
+identifier = "allow-update-asset-cache"
+description = "Allow update_asset_cache command"
+commands.allow = ["update_asset_cache"]
+
+[[permission]]
+identifier = "allow-download-asset-zip"
+description = "Allow download_asset_zip command"
+commands.allow = ["download_asset_zip"]
+
+[[permission]]
+identifier = "allow-scan-uefn-projects"
+description = "Allow scan_uefn_projects command"
+commands.allow = ["scan_uefn_projects"]
+
+[[permission]]
+identifier = "allow-select-projects-folder"
+description = "Allow select_projects_folder command"
+commands.allow = ["select_projects_folder"]
+
+[[permission]]
+identifier = "allow-get-existing-asset-folders"
+description = "Allow get_existing_asset_folders command"
+commands.allow = ["get_existing_asset_folders"]
+
+[[permission]]
+identifier = "allow-download-asset"
+description = "Allow download_asset command"
+commands.allow = ["download_asset"]
+
+[[permission]]
+identifier = "allow-extract-asset-to-project"
+description = "Allow extract_asset_to_project command"
+commands.allow = ["extract_asset_to_project"]
+
+[[permission]]
+identifier = "allow-reload-website"
+description = "Allow reload_website command"
+commands.allow = ["reload_website"]
+
+[default]
+description = "Default permissions for EasyAssets launcher commands"
+permissions = [
+  "allow-get-cached-assets",
+  "allow-check-asset-updates",
+  "allow-install-asset-update",
+  "allow-update-asset-cache",
+  "allow-download-asset-zip",
+  "allow-scan-uefn-projects",
+  "allow-select-projects-folder",
+  "allow-get-existing-asset-folders",
+  "allow-download-asset",
+  "allow-extract-asset-to-project",
+  "allow-reload-website",
+]

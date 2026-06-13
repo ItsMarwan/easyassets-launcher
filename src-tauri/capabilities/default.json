@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schema.tauri.app/acl/2/capability",
+  "identifier": "default",
+  "description": "EasyAssets Launcher \u2014 local window capability",
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "core:default",
+    "dialog:allow-open",
+    "dialog:allow-save",
+    "dialog:allow-message",
+    "dialog:allow-ask",
+    "fs:allow-read-file",
+    "fs:allow-write-file",
+    "fs:allow-remove",
+    "fs:allow-mkdir",
+    "fs:allow-read-dir",
+    "fs:allow-exists",
+    "fs:allow-stat",
+    "fs:allow-rename",
+    "fs:scope-appdata-recursive",
+    "fs:scope-download-recursive",
+    "fs:scope-home-recursive",
+    "http:default",
+    "opener:allow-open-url",
+    "opener:allow-reveal-item-in-dir",
+    "deep-link:default",
+    "notification:default",
+    "default"
+  ]
+}
